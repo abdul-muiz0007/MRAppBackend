@@ -27,6 +27,11 @@ const UserSchema = mongoose.Schema(
     organisation: {
       type: String
     },
+
+    taggedTerritory: {
+      type: String,
+      ref: "Territory",
+    }
   },
   
   {

@@ -1,12 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/users.route.js');
+const povsRoutes = require('./routes/povs.route.js');
+const territoriesRoutes = require('./routes/territories.route.js');
+const org = require('./routes/organisation.route.js');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', userRoutes);
+app.use('/api/povs', povsRoutes);
+app.use('/api/territories', territoriesRoutes);
+app.use('/api/org', org);
 
 app.get('/', (req, res) => {
     res.send('Hello from Node API Server with Express!');
