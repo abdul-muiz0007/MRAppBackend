@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
         const user = await User.create({ 
             name: formattedName, 
             email: lowercaseEmail, 
-            password: hashedPassword,
+            password: password,
             address: address,
             number: number
         });
