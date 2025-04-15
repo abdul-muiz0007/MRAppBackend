@@ -31,6 +31,13 @@ const UserSchema = mongoose.Schema(
     taggedTerritory: {
       type: String,
       ref: "Territory",
+    },
+
+    role: {
+      type: String,
+      enum: ["user", "manager"],
+      default: "user",
+      required: true,
     }
   },
   

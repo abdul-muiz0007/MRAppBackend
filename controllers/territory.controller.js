@@ -57,10 +57,20 @@ const deleteTerritory = async (req, res) => {
     }
 };
 
+const getCount = async (req, res) => {
+    try {
+        const count = await Territory.countDocuments({});
+        res.status(200).json({ count });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getTerritories,
     getTerritory,
     createTerritory,
     updateTerritory,
-    deleteTerritory
+    deleteTerritory,
+    getCount
 };

@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.send('Hello from Node API Server with Express!');
 });
 
-mongoose.connect("mongodb+srv://hashmisathnara7:gMmEl5jtHboXwHso@medrepcrm.tnn0r.mongodb.net/crmDatabase?retryWrites=true&w=majority&appName=MedRepCRM")
+mongoose.connect("mongodb+srv://abdulmuiz5086:uFO4HyH9nA9t92ys@medrepcrm.tnn0r.mongodb.net/crmDatabase?retryWrites=true&w=majority&appName=MedRepCRM")
 .then(() => {
     console.log('MongoDB connected successfully')
     app.listen(3000, () => {

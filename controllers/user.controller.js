@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Organisation = require('../models/organisation.model');
 const Territory = require('../models/territory.model'); 
 const bcrypt = require('bcrypt'); // For password hashing
 
@@ -34,7 +35,7 @@ const createUser = async (req, res) => {
         const user = await User.create({ 
             name: formattedName, 
             email: lowercaseEmail, 
-            password: password,
+            password: hashedPassword,
             address: address,
             number: number
         });
@@ -93,8 +94,16 @@ const deleteUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email, password });
+        let user = await User.findOne({ email });
         if (!user) {
+            user = await Organisation.findOne({ email });
+        }
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+        // Compare hashed password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         res.status(200).json(user);

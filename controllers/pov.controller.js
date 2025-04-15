@@ -90,6 +90,15 @@ const deletePOV = async (req, res) => {
     }
 };
 
+const getCount = async (req, res) => {
+    try {
+        const count = await POV.countDocuments({});
+        res.status(200).json({ count });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     getPOVs,
     getPOV,
@@ -97,5 +106,6 @@ module.exports = {
     updatePOV,
     updateTaggedTerritory,
     getPOVsByTerritory,
-    deletePOV
+    deletePOV,
+    getCount
 };

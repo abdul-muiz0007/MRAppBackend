@@ -1,4 +1,5 @@
 const Organisation = require('../models/organisation.model');
+const bcrypt = require('bcrypt'); // For password hashing
 
 const getOrganisations = async (req, res) => {
     try {
@@ -24,6 +25,10 @@ const getOrganisation = async (req, res) => {
 const createOrganisation = async (req, res) => {
     try {
         const organisation = await Organisation.create(req.body);
+        const password = req.body.password;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        organisation.password = hashedPassword;
+        await organisation.save();
         res.status(201).json(organisation);
     } catch (error) {
         res.status(500).json({ message: error.message });
