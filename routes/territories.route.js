@@ -6,14 +6,16 @@ const {
     createTerritory, 
     updateTerritory, 
     deleteTerritory,
-    getCount
+    getCount,
+    updateTaggedUsers
 } = require('../controllers/territory.controller.js');
 
-router.get('/', getTerritories);
+router.post('/', getTerritories);
 // router.get('/:id', getTerritory);
-router.post('/', createTerritory);
+router.post('/createTerritory', createTerritory);
 router.put('/:id', updateTerritory);
 router.delete('/:id', deleteTerritory);
 router.get('/count', getCount);
+router.post('/updateTaggedUsers', updateTaggedUsers);
 
 module.exports = router;

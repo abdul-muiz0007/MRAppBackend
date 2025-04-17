@@ -3,7 +3,8 @@ const Territory = require('../models/territory.model');
 
 const getPOVs = async (req, res) => {
     try {
-        const povs = await POV.find({});
+        const { organisation } = req.body;
+        const povs = await POV.find({ organisation });
         res.status(200).json(povs);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -66,10 +67,11 @@ const updateTaggedTerritory = async (req, res) => {
 
 const getPOVsByTerritory = async (req, res) => {
     try {
-        const { territoryID } = req.body;
-        const povs = await POV.find({ taggedTerritory: territoryID });
-        if (!povs || povs.length === 0) {
-            return res.status(404).json({ message: 'No POVs found for this territory' });
+        const { orgID, userID } = req.body;
+        const territoryIDs = await Territory.find({ organisation: orgID, taggedUsers: userID }).distinct('territoryID');
+        const povs = await POV.find({ taggedTerritory: { $in: territoryIDs } });
+        if (!povs.length) {
+            return res.status(404).json({ message: 'No POVs found for the given territory' });
         }
         res.status(200).json(povs);
     } catch (error) {

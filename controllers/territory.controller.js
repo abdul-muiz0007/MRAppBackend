@@ -2,7 +2,11 @@ const Territory = require('../models/territory.model');
 
 const getTerritories = async (req, res) => {
     try {
-        const territories = await Territory.find({});
+        const { organisation } = req.body;
+        const territories = await Territory.find({ organisation });
+        if (!territories || territories.length === 0) {
+            return res.status(404).json({ message: 'No territories found' });
+        }
         res.status(200).json(territories);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -57,6 +61,26 @@ const deleteTerritory = async (req, res) => {
     }
 };
 
+const updateTaggedUsers = async (req, res) => {
+    try {
+        const { organisation, territoryName, taggedUsers } = req.body;
+
+        const territory = await Territory.findOneAndUpdate(
+            { organisation, territoryName },
+            { $set: { taggedUsers } },
+            { new: true }
+        );
+
+        if (!territory) {
+            return res.status(404).json({ message: 'Territory not found' });
+        }
+
+        res.status(200).json(territory);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 const getCount = async (req, res) => {
     try {
         const count = await Territory.countDocuments({});
@@ -72,5 +96,6 @@ module.exports = {
     createTerritory,
     updateTerritory,
     deleteTerritory,
-    getCount
+    getCount,
+    updateTaggedUsers
 };

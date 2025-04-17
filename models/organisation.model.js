@@ -23,6 +23,12 @@ const organisationSchema = new mongoose.Schema(
     number: {
       type: Number,
     },
+    role: {
+      type: String,
+      enum: ["admin"],
+      default: "admin",
+      required: true,
+    }
   },
 
   {

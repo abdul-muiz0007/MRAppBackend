@@ -37,6 +37,10 @@ const POVSchema = mongoose.Schema(
       ref: "Territory",
     },
 
+    organisation: {
+      type: String
+    },
+
     lastVisitDate: {
       type: Date
     },

@@ -4,6 +4,7 @@ const userRoutes = require('./routes/users.route.js');
 const povsRoutes = require('./routes/povs.route.js');
 const territoriesRoutes = require('./routes/territories.route.js');
 const org = require('./routes/organisation.route.js');
+const visitLogRoutes = require('./routes/visitLogs.route.js');
 const app = express();
 const cors = require('cors');
 
@@ -18,6 +19,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/povs', povsRoutes);
 app.use('/api/territories', territoriesRoutes);
 app.use('/api/org', org);
+app.use('/api/visitLogs', visitLogRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello from Node API Server with Express!');

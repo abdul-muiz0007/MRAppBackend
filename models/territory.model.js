@@ -5,7 +5,6 @@ const territorySchema = mongoose.Schema(
   {
     territoryID: {
       type: String,
-      unique: true,
     },
 
     territoryName: {
@@ -13,10 +12,15 @@ const territorySchema = mongoose.Schema(
       required: [true, "Please enter territory name"],
     },
 
-    territoryCode: {
-      type: String,
-      required: [true, "Please enter territory code"],
+    organisation: {
+      type: String
+    },
+
+    taggedUsers: {
+      type: [String], 
+      default: []
     }
+
   },
   {
     timestamps: true,

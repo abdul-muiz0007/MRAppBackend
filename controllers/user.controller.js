@@ -26,7 +26,7 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
     try {
-        const { name, email, password, address, number } = req.body;
+        const { name, email, password, address, number, organisation } = req.body;
 
         const formattedName = name.trim();
         const lowercaseEmail = email.toLowerCase(); 
@@ -37,7 +37,8 @@ const createUser = async (req, res) => {
             email: lowercaseEmail, 
             password: hashedPassword,
             address: address,
-            number: number
+            number: number,
+            organisation: organisation
         });
         res.status(200).json(user);
     } catch (error) {

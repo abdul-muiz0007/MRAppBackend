@@ -35,9 +35,12 @@ const UserSchema = mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["user", "manager"],
-      default: "user",
-      required: true,
+      enum: ["user", "manager"]
+    },
+
+    manager: {
+      type: String,
+      ref: "User"
     }
   },
   
